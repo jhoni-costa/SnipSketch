@@ -1,0 +1,126 @@
+{
+  "name": "vs-capture",
+  "displayName": "VS Capture",
+  "description": "Capture code snippets and annotate them with arrows, shapes, text, and highlights like Lightshot.",
+  "version": "0.1.0",
+  "publisher": "developer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/developer/vs-capture"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets"
+  ],
+  "keywords": [
+    "screenshot",
+    "capture",
+    "lightshot",
+    "snippet",
+    "annotation",
+    "draw",
+    "arrow"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:vs-capture.captureSelection",
+    "onCommand:vs-capture.openEditor"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "vs-capture.captureSelection",
+        "title": "VS Capture: Capture Selected Code",
+        "category": "VS Capture",
+        "icon": "$(camera)"
+      },
+      {
+        "command": "vs-capture.openEditor",
+        "title": "VS Capture: Open Screenshot Editor",
+        "category": "VS Capture",
+        "icon": "$(edit)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vs-capture.captureSelection",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorHasSelection"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "vs-capture.captureSelection",
+          "group": "1_modification@100",
+          "when": "editorHasSelection"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vs-capture.captureSelection",
+          "when": "true"
+        },
+        {
+          "command": "vs-capture.openEditor",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VS Capture",
+      "properties": {
+        "vsCapture.theme": {
+          "type": "string",
+          "default": "one-dark-pro",
+          "enum": [
+            "one-dark-pro",
+            "dracula",
+            "github-dark",
+            "monokai",
+            "nord"
+          ],
+          "description": "Default code theme for captured snippets."
+        },
+        "vsCapture.showLineNumbers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show line numbers in code capture."
+        },
+        "vsCapture.showWindowControls": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show macOS window controls (traffic light dots)."
+        },
+        "vsCapture.padding": {
+          "type": "number",
+          "default": 32,
+          "description": "Padding around the code card (in pixels)."
+        },
+        "vsCapture.fontFamily": {
+          "type": "string",
+          "default": "JetBrains Mono, Fira Code, Menlo, Monaco, 'Courier New', monospace",
+          "description": "Font family for code rendering."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.js --production",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.20.0",
+    "highlight.js": "^11.9.0",
+    "typescript": "^5.3.3"
+  }
+}

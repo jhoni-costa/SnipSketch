@@ -1,0 +1,400 @@
+:root {
+  --bg-primary: #121316;
+  --bg-secondary: #1c1d22;
+  --bg-tertiary: #272830;
+  --bg-glass: rgba(28, 29, 36, 0.88);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(255, 255, 255, 0.2);
+  --text-main: #f0f2f5;
+  --text-muted: #8b90a0;
+  --primary-accent: #0a84ff;
+  --primary-hover: #0071e3;
+  --success: #30d158;
+  --danger: #ff453a;
+  --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body.vs-capture-body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-system);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Header Bar
+   ========================================================================== */
+.app-header {
+  height: 48px;
+  min-height: 48px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 50;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-title {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  background: linear-gradient(135deg, #ffffff 0%, #b0b5c0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge-tag {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  background-color: rgba(10, 132, 255, 0.15);
+  color: #5ac8fa;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(10, 132, 255, 0.25);
+  text-transform: lowercase;
+}
+
+.badge-file {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.zoom-label {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  min-width: 42px;
+  text-align: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-tertiary);
+  color: var(--text-main);
+  transition: all 0.15s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-active);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.action-btn.primary {
+  background-color: var(--primary-accent);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.action-btn.primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.action-btn.success {
+  background-color: rgba(48, 209, 88, 0.15);
+  border-color: rgba(48, 209, 88, 0.35);
+  color: #30d158;
+}
+
+.action-btn.success:hover {
+  background-color: rgba(48, 209, 88, 0.25);
+}
+
+.action-btn.danger {
+  color: #ff6961;
+}
+
+.action-btn.danger:hover:not(:disabled) {
+  background-color: rgba(255, 69, 58, 0.15);
+  border-color: rgba(255, 69, 58, 0.3);
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-subtle);
+  margin: 0 4px;
+}
+
+/* ==========================================================================
+   Viewport and Canvas
+   ========================================================================== */
+.editor-viewport {
+  flex: 1;
+  position: relative;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #0d0e12;
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.canvas-wrapper {
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  overflow: hidden;
+  display: inline-block;
+  line-height: 0;
+}
+
+#main-canvas {
+  display: block;
+  cursor: crosshair;
+}
+
+/* ==========================================================================
+   Lightshot-style Floating Toolbar
+   ========================================================================== */
+.floating-toolbar {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  padding: 6px 12px;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.tool-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tool-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tool-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.tool-btn.active {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.tool-divider {
+  width: 1px;
+  height: 22px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Color Palette */
+.color-palette {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.color-dot:hover {
+  transform: scale(1.15);
+}
+
+.color-dot.active {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px #ffffff;
+}
+
+/* Stroke Selector */
+.stroke-selector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stroke-btn {
+  background: transparent;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.stroke-preview {
+  width: 14px;
+  background-color: var(--text-muted);
+  border-radius: 4px;
+}
+
+.stroke-btn:hover .stroke-preview {
+  background-color: var(--text-main);
+}
+
+.stroke-btn.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.stroke-btn.active .stroke-preview {
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   Inline Text Input Overlay
+   ========================================================================== */
+.text-editor-input {
+  position: fixed;
+  background-color: rgba(24, 24, 27, 0.95);
+  border: 1.5px solid var(--primary-accent);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: var(--font-system);
+  font-weight: 600;
+  font-size: 15px;
+  resize: both;
+  outline: none;
+  min-width: 140px;
+  min-height: 40px;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   Notification Toast
+   ========================================================================== */
+.toast {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background-color: rgba(30, 32, 40, 0.95);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 500;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
