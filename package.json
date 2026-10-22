@@ -1,12 +1,12 @@
 {
-  "name": "vs-capture",
-  "displayName": "VS Capture",
+  "name": "snipsketch",
+  "displayName": "SnipSketch",
   "description": "Capture code snippets and annotate them with arrows, shapes, text, and highlights like Lightshot.",
   "version": "0.1.0",
   "publisher": "developer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/developer/vs-capture"
+    "url": "https://github.com/developer/snipsketch"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -22,31 +22,32 @@
     "snippet",
     "annotation",
     "draw",
-    "arrow"
+    "arrow",
+    "snipsketch"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [
-    "onCommand:vs-capture.captureSelection",
-    "onCommand:vs-capture.openEditor"
+    "onCommand:snipsketch.captureSelection",
+    "onCommand:snipsketch.openEditor"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "vs-capture.captureSelection",
-        "title": "VS Capture: Capture Selected Code",
-        "category": "VS Capture",
+        "command": "snipsketch.captureSelection",
+        "title": "SnipSketch: Capture Selected Code",
+        "category": "SnipSketch",
         "icon": "$(camera)"
       },
       {
-        "command": "vs-capture.openEditor",
-        "title": "VS Capture: Open Screenshot Editor",
-        "category": "VS Capture",
+        "command": "snipsketch.openEditor",
+        "title": "SnipSketch: Open Screenshot Editor",
+        "category": "SnipSketch",
         "icon": "$(edit)"
       }
     ],
     "keybindings": [
       {
-        "command": "vs-capture.captureSelection",
+        "command": "snipsketch.captureSelection",
         "key": "ctrl+alt+c",
         "mac": "cmd+alt+c",
         "when": "editorHasSelection"
@@ -55,26 +56,26 @@
     "menus": {
       "editor/context": [
         {
-          "command": "vs-capture.captureSelection",
+          "command": "snipsketch.captureSelection",
           "group": "1_modification@100",
           "when": "editorHasSelection"
         }
       ],
       "commandPalette": [
         {
-          "command": "vs-capture.captureSelection",
+          "command": "snipsketch.captureSelection",
           "when": "true"
         },
         {
-          "command": "vs-capture.openEditor",
+          "command": "snipsketch.openEditor",
           "when": "true"
         }
       ]
     },
     "configuration": {
-      "title": "VS Capture",
+      "title": "SnipSketch",
       "properties": {
-        "vsCapture.theme": {
+        "snipsketch.theme": {
           "type": "string",
           "default": "one-dark-pro",
           "enum": [
@@ -86,22 +87,22 @@
           ],
           "description": "Default code theme for captured snippets."
         },
-        "vsCapture.showLineNumbers": {
+        "snipsketch.showLineNumbers": {
           "type": "boolean",
           "default": true,
           "description": "Show line numbers in code capture."
         },
-        "vsCapture.showWindowControls": {
+        "snipsketch.showWindowControls": {
           "type": "boolean",
           "default": true,
           "description": "Show macOS window controls (traffic light dots)."
         },
-        "vsCapture.padding": {
+        "snipsketch.padding": {
           "type": "number",
           "default": 32,
           "description": "Padding around the code card (in pixels)."
         },
-        "vsCapture.fontFamily": {
+        "snipsketch.fontFamily": {
           "type": "string",
           "default": "JetBrains Mono, Fira Code, Menlo, Monaco, 'Courier New', monospace",
           "description": "Font family for code rendering."

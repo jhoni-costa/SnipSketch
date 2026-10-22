@@ -1,4 +1,4 @@
-# VS Capture 📸
+# SnipSketch 📸
 
 > **Extensão do Visual Studio Code para captura e anotação visual de trechos de código (estilo Lightshot).**
 
@@ -34,8 +34,8 @@ Capture trechos de código com formatação impecável (estilo macOS/Carbon) e f
 ### Comandos da Extensão
 | Comando | Teclas de Atalho (Mac) | Teclas de Atalho (Win/Linux) | Descrição |
 |---|---|---|---|
-| `vs-capture.captureSelection` | `Cmd + Alt + C` | `Ctrl + Alt + C` | Captura o código selecionado no editor ativo |
-| `vs-capture.openEditor` | Via Command Palette | Via Command Palette | Abre o editor de anotação com template |
+| `snipsketch.captureSelection` | `Cmd + Alt + C` | `Ctrl + Alt + C` | Captura o código selecionado no editor ativo |
+| `snipsketch.openEditor` | Via Command Palette | Via Command Palette | Abre o editor de anotação com template |
 
 ### Ferramentas no Editor Visual
 | Tecla | Ferramenta |
@@ -60,7 +60,7 @@ Capture trechos de código com formatação impecável (estilo macOS/Carbon) e f
 O projeto foi construído seguindo princípios sólidos da Ciência da Computação e Engenharia de Software:
 
 ```
-vs-capture/
+SnipSketch/
 ├── src/                          # Extension Host (Node.js / VS Code API)
 │   ├── extension.ts              # Ponto de entrada e registro de comandos
 │   ├── panel/                    # Gerenciador de ciclo de vida do Webview Panel
@@ -127,4 +127,4 @@ vs-capture/
 3. **Executar a Extensão no VS Code**:
    - Pressione `F5` (ou acesse a aba **Run and Debug** e clique em **Run Extension**).
    - Uma nova janela (*Extension Development Host*) será aberta com a extensão carregada.
-   - Abra qualquer arquivo de código, selecione um bloco de linhas e clique com o botão direito -> **VS Capture: Capture Selected Code** (ou pressione `Cmd+Alt+C`).
+   - Abra qualquer arquivo de código, selecione um bloco de linhas e clique com o botão direito -> **SnipSketch: Capture Selected Code** (ou pressione `Cmd+Alt+C`).

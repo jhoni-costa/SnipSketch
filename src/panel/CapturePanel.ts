@@ -27,7 +27,7 @@ export class CapturePanel {
 
     const panel = vscode.window.createWebviewPanel(
       CapturePanel.viewType,
-      'VS Capture',
+      'SnipSketch',
       column,
       {
         enableScripts: true,
@@ -177,7 +177,7 @@ export class CapturePanel {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data: blob:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}'; font-src ${webview.cspSource} https: data:;">
-  <title>VS Capture</title>
+  <title>SnipSketch</title>
   <link rel="stylesheet" href="${styleUri}">
 </head>
 <body class="vs-capture-body">
@@ -185,7 +185,7 @@ export class CapturePanel {
     <!-- Top Bar Controls -->
     <header class="app-header">
       <div class="header-left">
-        <span class="app-title">VS Capture</span>
+        <span class="app-title">SnipSketch</span>
         <span id="badge-lang" class="badge-tag">plaintext</span>
         <span id="badge-file" class="badge-file">untitled</span>
       </div>
