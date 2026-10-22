@@ -1,0 +1,6 @@
+.vscode/**
+src/**
+webview/src/**
+tsconfig.json
+esbuild.js
+*.vsix

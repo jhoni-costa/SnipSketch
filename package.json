@@ -3,10 +3,10 @@
   "displayName": "SnipSketch",
   "description": "Capture code snippets and annotate them with arrows, shapes, text, and highlights like Lightshot.",
   "version": "0.1.0",
-  "publisher": "developer",
+  "publisher": "jhoni-costa",
   "repository": {
     "type": "git",
-    "url": "https://github.com/developer/snipsketch"
+    "url": "https://github.com/jhoni-costa/SnipSketch"
   },
   "engines": {
     "vscode": "^1.85.0"
