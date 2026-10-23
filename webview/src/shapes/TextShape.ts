@@ -6,6 +6,7 @@ export class TextShape extends BaseShape {
   public y: number;
   public text: string;
   public fontSize: number;
+  private _measuredWidth = 0;
 
   constructor(x: number, y: number, text: string, style: ShapeStyle, fontSize = 16) {
     super('text', style);
@@ -30,6 +31,7 @@ export class TextShape extends BaseShape {
       const metrics = ctx.measureText(line);
       maxLineWidth = Math.max(maxLineWidth, metrics.width);
     }
+    this._measuredWidth = maxLineWidth;
 
     const padX = 10;
     const padY = 6;
@@ -43,7 +45,11 @@ export class TextShape extends BaseShape {
     ctx.lineWidth = 1.5;
 
     ctx.beginPath();
-    ctx.roundRect(this.x, this.y, rectWidth, rectHeight, 6);
+    if (typeof (ctx as any).roundRect === 'function') {
+      (ctx as any).roundRect(this.x, this.y, rectWidth, rectHeight, 6);
+    } else {
+      ctx.rect(this.x, this.y, rectWidth, rectHeight);
+    }
     ctx.fill();
     ctx.stroke();
 
@@ -62,14 +68,14 @@ export class TextShape extends BaseShape {
   public getBounds(): RectBounds {
     const lines = this.text.split('\n');
     const lineHeight = this.fontSize * 1.35;
-    // Estimate width based on characters or dummy canvas
-    const approxCharWidth = this.fontSize * 0.6;
+    const approxCharWidth = this.fontSize * 0.65;
     let maxLen = 0;
     for (const l of lines) maxLen = Math.max(maxLen, l.length);
 
     const padX = 10;
     const padY = 6;
-    const width = maxLen * approxCharWidth + padX * 2;
+    const contentWidth = this._measuredWidth > 0 ? this._measuredWidth : (maxLen * approxCharWidth);
+    const width = contentWidth + padX * 2;
     const height = lines.length * lineHeight + padY * 2;
 
     return {
