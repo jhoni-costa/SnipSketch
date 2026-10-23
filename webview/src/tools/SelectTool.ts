@@ -2,6 +2,8 @@ import { Point, ToolType } from '../types';
 import { ITool } from './ToolManager';
 import { CanvasEngine } from '../engine/CanvasEngine';
 import { BaseShape } from '../shapes/BaseShape';
+import { TextShape } from '../shapes/TextShape';
+import { TextTool } from './TextTool';
 import { Command } from '../engine/History';
 
 export class SelectTool implements ITool {
@@ -16,9 +18,16 @@ export class SelectTool implements ITool {
     this._engine = engine;
   }
 
-  public onMouseDown(p: Point, _e: MouseEvent): void {
+  public onMouseDown(p: Point, e: MouseEvent): void {
     const hit = this._engine.findShapeAt(p);
     this._engine.setSelectedShape(hit);
+
+    if (e.detail === 2 && hit instanceof TextShape) {
+      this._engine.toolManager.setTool('text');
+      const textTool = this._engine.toolManager.getTool<TextTool>('text');
+      textTool?.startEditing(hit);
+      return;
+    }
 
     if (hit) {
       this._draggedShape = hit;
