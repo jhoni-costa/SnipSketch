@@ -2,7 +2,7 @@
   "name": "snipsketch",
   "displayName": "SnipSketch",
   "description": "Capture beautiful code screenshots and annotate them with arrows, shapes, text, highlighters, and blur — like Lightshot for VS Code.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "publisher": "jhoni-costa",
   "icon": "icon.png",
   "repository": {
