@@ -23,12 +23,19 @@ export class ToolManager {
     this._activeTool = this._createDefaultSelectTool();
   }
 
+  public onToolChanged?: (tool: ToolType) => void;
+  public onColorChanged?: (color: string) => void;
+
   public get engine(): CanvasEngine {
     return this._engine;
   }
 
   public registerTool(tool: ITool): void {
     this._tools.set(tool.type, tool);
+  }
+
+  public getTool<T extends ITool = ITool>(type: ToolType): T | undefined {
+    return this._tools.get(type) as T | undefined;
   }
 
   public setTool(type: ToolType): void {
@@ -38,6 +45,7 @@ export class ToolManager {
     const tool = this._tools.get(type);
     if (tool) {
       this._activeTool = tool;
+      this.onToolChanged?.(type);
     }
   }
 
@@ -51,6 +59,7 @@ export class ToolManager {
 
   public setColor(color: string): void {
     this._activeColor = color;
+    this.onColorChanged?.(color);
   }
 
   public getActiveStrokeWidth(): number {
