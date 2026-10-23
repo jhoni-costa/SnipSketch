@@ -48,6 +48,10 @@ export class CanvasEngine {
     this._setupEventListeners();
   }
 
+  public get canvas(): HTMLCanvasElement {
+    return this._canvas;
+  }
+
   public get toolManager(): ToolManager {
     return this._toolManager;
   }
@@ -362,6 +366,16 @@ export class CanvasEngine {
     });
 
     window.addEventListener('keydown', (e) => {
+      // Don't intercept shortcuts when typing in an input or textarea
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'TEXTAREA' || activeEl.tagName === 'INPUT')) {
+        return;
+      }
+      const textInput = document.getElementById('text-editor-input');
+      if (textInput && textInput.style.display !== 'none') {
+        return;
+      }
+
       // Global shortcut handling
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
         e.preventDefault();

@@ -18,7 +18,7 @@ declare function acquireVsCodeApi(): {
 
 const vscode = typeof acquireVsCodeApi !== 'undefined' ? acquireVsCodeApi() : null;
 
-window.addEventListener('DOMContentLoaded', () => {
+function init() {
   const canvas = document.getElementById('main-canvas') as HTMLCanvasElement;
   if (!canvas) return;
 
@@ -60,6 +60,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Initialize tool to Select
   engine.toolManager.setTool('select');
+
+  // Synchronize UI if tool or color changes programmatically
+  engine.toolManager.onToolChanged = (toolType) => {
+    toolButtons.forEach((b) => {
+      b.classList.toggle('active', b.dataset.tool === toolType);
+    });
+  };
+
+  engine.toolManager.onColorChanged = (color) => {
+    colorDots.forEach((d) => {
+      d.classList.toggle('active', d.dataset.color === color);
+    });
+  };
 
   // Tool buttons binding
   const toolButtons = document.querySelectorAll<HTMLButtonElement>('.tool-btn');
@@ -156,8 +169,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Keyboard shortcuts helper for quick tool switching
   window.addEventListener('keydown', (e) => {
-    // If typing in textarea, ignore tool switching
-    if (document.activeElement?.tagName === 'TEXTAREA') return;
+    // If typing in textarea/input, or if text editor overlay is visible, ignore tool switching
+    if (document.activeElement?.tagName === 'TEXTAREA' || document.activeElement?.tagName === 'INPUT') return;
+    const textInput = document.getElementById('text-editor-input');
+    if (textInput && textInput.style.display !== 'none') return;
 
     if (e.ctrlKey || e.metaKey || e.altKey) return;
 
@@ -214,4 +229,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Signal to extension host that Webview is ready to receive snippet
   vscode?.postMessage({ type: 'READY' });
-});
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
