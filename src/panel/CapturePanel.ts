@@ -227,6 +227,7 @@ export class CapturePanel {
     <main class="editor-viewport" id="viewport">
       <div class="canvas-wrapper" id="canvas-wrapper">
         <canvas id="main-canvas"></canvas>
+        <textarea id="text-editor-input" class="text-editor-input" style="display: none;" placeholder="Type text..." spellcheck="false"></textarea>
       </div>
     </main>
 
@@ -284,9 +285,6 @@ export class CapturePanel {
         <button class="stroke-btn" data-width="8" title="Thick (8px)"><span class="stroke-preview" style="height: 8px;"></span></button>
       </div>
     </div>
-
-    <!-- Hidden Text Input for Canvas Text Tool -->
-    <textarea id="text-editor-input" class="text-editor-input" style="display: none;"></textarea>
 
     <!-- Notification Toast -->
     <div id="toast" class="toast"></div>
