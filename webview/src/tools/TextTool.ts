@@ -28,6 +28,9 @@ export class TextTool implements ITool {
   }
 
   public onMouseDown(p: Point, e: MouseEvent): void {
+    // Prevent canvas from stealing focus from the text input
+    e.stopPropagation();
+    e.preventDefault();
     // If we just committed text (e.g. user clicked to blur), don't spawn a new box on the same click
     if (this._justCommitted) {
       this._justCommitted = false;
